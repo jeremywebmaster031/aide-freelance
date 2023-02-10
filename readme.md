@@ -1,0 +1,1 @@
+DANS LA FINALITE ON VEUT un design de ce <a href="https://github.com/wmde/wikidata-who-am-i?ref=vuejsexamples.com" target="_blank" rel="noopener noreferrer">type</a>  mais vu qu'il n'a pas de mauvaise réponse ( à vous d'adapter ) 
