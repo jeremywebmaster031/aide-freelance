@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIVER-VALEURS</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="col-md-12">
+                <h1>CODE POUR DRIVERS </h1>
+                <h3>STRUCTURE ACTUELLE : ( 1 ) code js + ( 2 )la lecon du learnpress + ( 3 )le formulaire ( contact form 7 ) </h3>
+            </div>
+            <div class="col-md-12">
+                <div class="head head-body">
+                    Mes Drivers
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <li class="btn btn-success btn-block btn-lg" data-toggle="modal" data-target="#Modal_Driver" onclick="initDriver()"> COMMENCER</li>
+
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="Modal_Driver" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <b><h1 class="text-center" style="text-align: center;" id="">Mes drivers (ou messages contraignants)</h1></b>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body" id="bodyDriver">
+                                        <div class="text-center row">
+                                            <h1 class="text-center"><strong id="textJsonDriver"></strong></h1>
+                                            <div class="col-md-12" id="initDriver" style="display: none;">
+                                                <button type="button" class="btn btn-success rounded-0 btn-lg" onclick="preCountDriver()">COMMENCER</button>
+                                            </div>
+                                            <div class="col-md-12" id="actionDriver">
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-danger btn-block  rounded btn-lg mb-1" onclick="zeroDriver()">0</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-warning btn-block  rounded btn-lg mb-1" onclick="oneDriver()">1</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary btn-block  rounded btn-lg mb-1" onclick="twoDriver()">2</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-success btn-block rounded btn-lg mb-1" onclick="threeDriver()">3</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="footerDriver" style="display: none;">
+                                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="endDriver()">SAUVEGARDER</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            var Faisplaisir = 0;
+                            var Soisparfait = 0;
+                            var SoisFort = 0;
+                            var Depechetoi = 0;
+                            var Faiseffort = 0;
+                            var array_Faisplaisir = [1, 6, 11, 16, 21, 26, 31, 36, 41];
+                            var array_Soisparfait = [2, 7, 12, 17, 22, 27, 32, 37, 42];
+                            var array_SoisFort = [3, 8, 13, 18, 23, 28, 33, 38, 43];
+                            var array_Depechetoi = [4, 9, 14, 19, 24, 29, 34, 39, 44];
+                            var array_Faiseffort = [5, 10, 15, 20, 25, 30, 35, 40, 45];
+
+                            var stepDriver = 0;
+                            var JsonDriver = [
+                                "1. Quand je parle à un interlocuteur, je souris",
+                                "2. Je note les erreurs des autres et je leur fais remarquer",
+                                "3. même énervé, je parais calme",
+                                "4. je me dépêche même si cela n’a pas vraiment d’importance",
+                                "5. j’éprouve des difficultés à terminer",
+                                "6. quand cela tourne mal, je m’en vais en attendant que ça aille mieux",
+                                "7. j’arrive plutôt en avance pour être sûr de ne pas être en retard",
+                                "8. je pèse soigneusement mes décisions",
+                                "9. je n’ai pas le temps de faire le tour des magasins pour moi-même",
+                                "10. je réalise après coup que je me suis rendu la tâche difficile",
+                                "11. quand je parle, je hoche la tête, je dis «vous savez que »",
+                                "12. je range et je mets les objets en place",
+                                "13. je pense que dans la difficulté, il faut savoir faire face et prendre sur soi",
+                                "14. je dis «vous êtes prêt ? Allons-y » et quand je m’en vais, je démarre sur les chapeaux de roues",
+                                "15. je me dis 'cette fois, je le fais correctement  ' mais ça ne sert pas à grand chose",
+                                "16. j’accorde beaucoup d’importance à la netteté de ma tenue vestimentaire",
+                                "17. je me déplace en me tenant très droit",
+                                "18. Dans mes déplacements, j’ emporte plus que le nécessaire",
+                                "19. Je tapote des doigts, je remue les pieds, les genoux à l’occasion",
+                                "20. J’éprouve des difficultés dans les actions où les autres sont à l’aise",
+                                "21. Si je me sens un peu nerveux, je ris pour aplanir les difficultés",
+                                "22. Je critique les avis et les actes d’autrui",
+                                "23. Je mets plus de temps à me débrouiller des mauvaises situations qu’il ne faudrait",
+                                "24. J’en fais trop et trop vite",
+                                "25. C’est quand les choses sont importantes et difficiles que je m’ accroche même jusqu’à l’épuisement",
+                                "26. Avant de formuler une demande, je dis des paroles aimables",
+                                "27. Je rassemble ou j’étale aux yeux de tous des informations ou des objets intéressants",
+                                "28.Je fais pour les autres des choses qu’ils pourraient faire eux-mêmes",
+                                "29. Je me heurte aux gens et aux objets",
+                                "30. Lorsque j’ai presque terminé, je me mets à mon aise et je remets à plus tard ce que je dois terminer",
+                                "31. Je me montre de bonne humeur pour cacher ma peine",
+                                "32. je m’arrange pour que tout soit exactement juste et bien fini",
+                                "33. Je suis plus prudent que la moyenne",
+                                "34. J’interromps les autres pour accélérer le débat, ou je me prépare à partir avant qu’ils n’aient terminé",
+                                "35. Je suis désorganisé sur pas mal de points, par exemple je laisse le rangement s’accumuler",
+                                "36. En cas de priorité à attribuer, je donne automatiquement la première place aux autres",
+                                "37. En général, je considère que tous les details sont importants",
+                                "38. Mon visage me permet de cacher mes sentiments",
+                                "39. Quand j’attends, je fais les cent pas de long en large",
+                                "40. Je peux être très en retard ou bien carrément je n’y arrive pas",
+                                "41. Si je me trouve seul, je suis régulièrement agité",
+                                "42. L’avis des autres m’est indifférent pour agir suffisamment bien",
+                                "43. Au niveau physique, je peux être mal à l’aise longtemps sans m’en apercevoir",
+                                "44. je marche vite, je mange vite et je parle vite",
+                                "45. J’attends trop longtemps avant de me lancer dans mes actions",
+                            ];
+
+                            function initDriver() {
+                                if (stepDriver == 0) {
+
+                                    document.getElementById("initDriver").style.display = "block";
+                                    document.getElementById("actionDriver").style.display = "none";
+                                }
+                            }
+
+                            function preCountDriver(params) {
+                                stepDriver = 1;
+                                document.getElementById("initDriver").style.display = "none";
+                                document.getElementById("actionDriver").style.display = "flex";
+                                console.log("stepDriver : " + stepDriver + " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort);
+                                document.getElementById("textJsonDriver").innerText = JsonDriver[stepDriver - 1];
+                            }
+
+                            function zeroDriver() {
+                                document.getElementById("textJsonDriver").innerText = JsonDriver[stepDriver];
+
+
+                                if (array_Faisplaisir.includes(stepDriver)) {
+                                    Faisplaisir = Faisplaisir + 0;
+                                } else if (array_Soisparfait.includes(stepDriver)) {
+                                    Soisparfait = Soisparfait + 0;
+                                } else if (array_SoisFort.includes(stepDriver)) {
+                                    SoisFort = SoisFort + 0;
+                                } else if (array_Depechetoi.includes(stepDriver)) {
+                                    Depechetoi = Depechetoi + 0;
+                                } else if (array_Faiseffort.includes(stepDriver)) {
+                                    Faiseffort = Faiseffort + 0;
+                                } else {
+                                    console.log("aucun intervalle")
+                                }
+                                stepDriver = stepDriver + 1;
+                                if (stepDriver - 1 == JsonDriver.length) {
+                                    document.getElementById("footerDriver").style.display = "block";
+                                    document.getElementById("textJsonDriver").style.display = "none";
+                                    document.getElementById("actionDriver").innerHTML = "<span   class='text-success col-green'>Resultat sauvegardé Cliquez sur le bouton large SAUVEGARDER</span><br> ";
+                                }
+                                console.log("stepDriver : " + stepDriver + " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort);
+                            }
+
+
+                            function oneDriver() {
+                                document.getElementById("textJsonDriver").innerText = JsonDriver[stepDriver];
+
+
+                                if (array_Faisplaisir.includes(stepDriver)) {
+                                    Faisplaisir = Faisplaisir + 1;
+                                } else if (array_Soisparfait.includes(stepDriver)) {
+                                    Soisparfait = Soisparfait + 1;
+                                } else if (array_SoisFort.includes(stepDriver)) {
+                                    SoisFort = SoisFort + 1;
+                                } else if (array_Depechetoi.includes(stepDriver)) {
+                                    Depechetoi = Depechetoi + 1;
+                                } else if (array_Faiseffort.includes(stepDriver)) {
+                                    Faiseffort = Faiseffort + 1;
+                                } else {
+                                    console.log("aucun intervalle")
+                                }
+                                stepDriver = stepDriver + 1;
+                                if (stepDriver - 1 == JsonDriver.length) {
+                                    document.getElementById("footerDriver").style.display = "block";
+                                    document.getElementById("textJsonDriver").style.display = "none";
+                                    document.getElementById("actionDriver").innerHTML = "<span   class='text-success col-green'>Resultat sauvegardé Cliquez sur le bouton large SAUVEGARDER</span><br> ";
+                                }
+                                console.log("stepDriver : " + stepDriver + " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort);
+                            }
+
+                            function twoDriver() {
+                                document.getElementById("textJsonDriver").innerText = JsonDriver[stepDriver];
+
+
+                                if (array_Faisplaisir.includes(stepDriver)) {
+                                    Faisplaisir = Faisplaisir + 2;
+                                } else if (array_Soisparfait.includes(stepDriver)) {
+                                    Soisparfait = Soisparfait + 2;
+                                } else if (array_SoisFort.includes(stepDriver)) {
+                                    SoisFort = SoisFort + 2;
+                                } else if (array_Depechetoi.includes(stepDriver)) {
+                                    Depechetoi = Depechetoi + 2;
+                                } else if (array_Faiseffort.includes(stepDriver)) {
+                                    Faiseffort = Faiseffort + 2;
+                                } else {
+                                    console.log("aucun intervalle")
+                                }
+                                stepDriver = stepDriver + 1;
+                                if (stepDriver - 1 == JsonDriver.length) {
+                                    document.getElementById("footerDriver").style.display = "block";
+                                    document.getElementById("textJsonDriver").style.display = "none";
+                                    document.getElementById("actionDriver").innerHTML = "<span   class='text-success col-green'>Resultat sauvegardé Cliquez sur le bouton large SAUVEGARDER</span><br> ";
+                                }
+                                console.log("stepDriver : " + stepDriver + " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort);
+                            }
+
+                            function threeDriver() {
+                                document.getElementById("textJsonDriver").innerText = JsonDriver[stepDriver];
+
+
+                                if (array_Faisplaisir.includes(stepDriver)) {
+                                    Faisplaisir = Faisplaisir + 3;
+                                } else if (array_Soisparfait.includes(stepDriver)) {
+                                    Soisparfait = Soisparfait + 3;
+                                } else if (array_SoisFort.includes(stepDriver)) {
+                                    SoisFort = SoisFort + 3;
+                                } else if (array_Depechetoi.includes(stepDriver)) {
+                                    Depechetoi = Depechetoi + 3;
+                                } else if (array_Faiseffort.includes(stepDriver)) {
+                                    Faiseffort = Faiseffort + 3;
+                                } else {
+                                    console.log("aucun intervalle")
+                                }
+                                stepDriver = stepDriver + 1;
+                                if (stepDriver - 1 == JsonDriver.length) {
+                                    document.getElementById("footerDriver").style.display = "block";
+                                    document.getElementById("textJsonDriver").style.display = "none";
+                                    document.getElementById("actionDriver").innerHTML = "<span   class='text-success col-green'>Resultat sauvegardé Cliquez sur le bouton large SAUVEGARDER</span><br> ";
+                                }
+                                console.log("stepDriver : " + stepDriver + " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort);
+                            }
+
+
+                            function endDriver() {
+                                document.getElementById("all_drivers").innerHTML = " Fais plaisir :" + Faisplaisir + " Sois parfait  : " + Soisparfait + " Sois Fort : " + SoisFort + "  Dépêche- toi : " + Depechetoi + " Fais effort : " + Faiseffort
+                                swal("VALIDE !", " Tout les valeurs sont ok!", "success");
+
+                            }
+                        </script>
+
+                        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    </div>
+                    <div class="col-md-4">
+                        Chapitre 7 Mes Drivers ..... [hfcm id="5"] [contact-form-7 id="2559" title="3. Mes drivers"]
+                    </div>
+                    <div class="col-md-4">
+                        <style>
+                            .modal-content {
+                                -webkit-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -moz-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -o-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                z-index: 10000;
+                            }
+                            
+                            @media only screen and (max-width: 1500px) {
+                                .modal-dialog {
+                                    margin-right: 5%;
+                                }
+                            }
+                            
+                            #all_drivers {
+                                height: 20px !important;
+                            }
+                        </style>
+                        <br> [textarea* all_drivers rows:2 id:all_drivers readonly placeholder"Total Driver" ] [hidden your-name default:user_display_name] [hidden your-email default:user_email] Envoyer à : [select* mail include_blank "Martine LDM|martine@trouver-un-therapeute.fr"
+                        "Estelle R|estelle@trouver-un-therapeute.fr" "Tifenn G|tifenn@emploi-talent.com" "Françoise M|francoise.trouveruntherapeute@gmail.com" "Soumaya T|soumaya.trouveruntherapeute@gmail.com" "Mathilde G|mathilde.trouveruntherapeute@gmail.com"
+                        "Barbara L|barbara.trouveruntherapeute@gmail.com" "Virginie C|virginie.trouveruntherapeute@gmail.com" "Celine B|celine.trouveruntherapeute@gmail.com" "Thi-Van M|thi-van@trouver-un-therapeute.fr" "Dovy B|dovi@trouver-un-therapeute.fr"][submit
+                        "Envoyer"]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="col-md-12">
+                <h1>CODE POUR MES VALEURS </h1>
+                <h3>STRUCTURE ACTUELLE : code js + la lecon du learnpress + le formulaire ( contact form 7 ) </h3>
+            </div>
+            <div class="col-md-12">
+                <div class="head head-body">
+                    Mes VALEURS
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <style>
+                            .modal-content {
+                                -webkit-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -moz-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -o-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                z-index: 10000;
+                            }
+                            
+                            .btn-info {
+                                margin: 10px;
+                            }
+                            /*shows the stars side by side, centered, and in reverse order than the HMTL*/
+                            
+                            .rating {
+                                display: flex;
+                                flex-direction: row-reverse;
+                                justify-content: center;
+                            }
+                            /*hides the radio buttons*/
+                            
+                            .rating>input {
+                                display: none;
+                            }
+                            /*style the empty stars, sets position:relative as base for pseudo-elements*/
+                            
+                            .rating>label {
+                                position: relative;
+                                width: 1em;
+                                font-size: 2vw;
+                                color: #FFD700;
+                                cursor: pointer;
+                            }
+                            /* sets filled star pseudo-elements */
+                            
+                            .rating>label::before {
+                                content: "\2605";
+                                position: absolute;
+                                opacity: 0;
+                            }
+                            /*overlays a filled start character to the hovered element and all previous siblings*/
+                            
+                            .rating>label:hover:before,
+                            .rating>label:hover~label:before {
+                                opacity: 1 !important;
+                            }
+                            /*overlays a filled start character on the selected element and all previous siblings*/
+                            
+                            .rating>input:checked~label:before {
+                                opacity: 1;
+                            }
+                            /*when an element is selected and pointer re-enters the rating container, selected rate and siblings get semi transparent, as reminder of current selection*/
+                            
+                            .rating:hover>input:checked~label:before {
+                                opacity: 0.4;
+                            }
+                            /*just aesthetics*/
+                            
+                            @media only screen and (max-width: 600px) {
+                                .rating>label {
+                                    font-size: 8vw;
+                                }
+                                h1 {
+                                    font-size: 14px;
+                                }
+                                p {
+                                    font-size: 12px;
+                                }
+                            }
+                            
+                            #respond {
+                                color: green;
+                            }
+                            
+                            #respondd {
+                                color: green;
+                            }
+                        </style>
+
+                        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                        <script>
+                            var rating, Count_rating = 1;
+                            var all_rating = ["-----------------MES VALEURS---------------"];
+
+                            function addRating(texts) {
+                                document.getElementById("titles").innerText = texts;
+                            }
+
+                            function countRa(rating) {
+                                Count_rating = rating;
+                            }
+
+                            function saveRating() {
+                                document.getElementById('respondd').innerText = " ";
+                                if (Count_rating > 1) {
+                                    var texts = document.getElementById("titles").innerText;
+                                    all_rating.push("\n");
+                                    all_rating.push(texts);
+                                    all_rating.push("\n");
+                                    all_rating.push(Count_rating + " /5");
+                                    all_rating.push("\n");
+                                    if (true) {
+                                        console.log(all_rating);
+                                        document.getElementById('pRating').innerHTML += "<tr><td>" + texts + " : " + Count_rating + " /5" + "</td></tr>";
+                                        document.getElementById('all_rating').innerHTML = (all_rating);
+                                        document.getElementById('all_rating').innerHTML = document.getElementById('all_rating').innerHTML.replace(/,/g, ' ');
+                                        document.querySelector('input[name="rating"]:checked').checked = false;
+                                        Count_rating = 1;
+                                        document.getElementById('closeModal').click();
+                                        document.getElementById('respondd').innerText = "Ajout effectue";
+                                        setTimeout(() => {
+                                            document.getElementById('respondd').innerText = "- "
+                                        }, 1000);
+                                    } else {
+                                        swal("Error!", " Veuillez actualiser la page!", "error");
+                                    }
+                                } else {
+                                    swal("Notez !", " Veuillez actualiser la page!", "warning");
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="col-md-4">
+                        [hfcm id="2"]
+
+                        <iframe width="800" height="450" src="https://www.youtube.com/embed/1UH0bO7Z7NE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <h3>Parmi les valeurs ci-dessous, quelles sont celles auxquelles vous adhérez ?</h3>
+                        <h3>Identifiez-les en cochant un chiffre de “0” (celle-ci ne m’intéresse absolument pas) à “5” (celle-ci est totalement prioritaire pour moi aujourd’hui).</h3>
+                        <h3>Les lignes disponibles vous permettent d’ajouter des valeurs importantes pour vous et non-citées.</h3>
+                        <h3>Valeurs</h3>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <img src="https://i.ibb.co/MGwtbxz/emoji.png" alt="emoji" />
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 id="titles" style="text-align: center;"></h3>
+                                        <div class="rating">
+                                            <!--elements are in reversed order, to allow "previous sibling selectors" in CSS-->
+                                            <input type="radio" name="rating" value="5" class="count_rating" id="5" onclick="countRa('5')"><label for="5">☆</label>
+                                            <input type="radio" name="rating" value="4" class="count_rating" id="4" onclick="countRa('4')"><label for="4">☆</label>
+                                            <input type="radio" name="rating" value="3" class="count_rating" id="3" onclick="countRa('3')"><label for="3">☆</label>
+                                            <input type="radio" name="rating" value="2" class="count_rating" id="2" onclick="countRa('2')"><label for="2">☆</label>
+                                            <input type="radio" name="rating" value="1" class="count_rating" id="1" onclick="countRa('1')"><label for="1">☆</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">ANNULER</button>
+                                        <button type="button" class="btn btn-success btn-block" onclick="saveRating()">VALIDER</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 id="respondd">-</h5>
+                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Affection" onclick="addRating('Affection Amour');"> Affection/Amour</button> <button type="button" class="btn btn-info btn-lg mb-4"
+                            data-toggle="modal" data-target="#myModal" id="Famille" onclick="addRating('Famille');"> Famille</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Loyaute" onclick="addRating('Loyaute');"> Loyauté</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Justice" onclick="addRating('Justice/Equite');"> Justice/Equité</button> <button type="button" class="btn btn-info btn-lg mb-4"
+                            data-toggle="modal" data-target="#myModal" id="Competence" onclick="addRating('Compétence');"> Compétence</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Amitie" onclick="addRating('Amitie');"> Amitié</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Independance" onclick="addRating('Indépendance');"> Indépendance</button> <button type="button" class="btn btn-info btn-lg mb-4"
+                            data-toggle="modal" data-target="#myModal" id="Creativite" onclick="addRating('Créativite');"> Créativité</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Plaisir" onclick="addRating('Plaisir');"> Plaisir</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Pouvoir" onclick="addRating('Pouvoir');"> Pouvoir</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal"
+                            data-target="#myModal" id="Integrite" onclick="addRating('Intégrite');"> Intégrité</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Argent" onclick="addRating('Argent');"> Argent</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="collegues" onclick="addRating('Relations avec les collegues');"> Relations avec les collegues</button> <button type="button"
+                            class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="patron" onclick="addRating('Relations avec le patron/clients');"> Relations avec le patron/clients</button> <button type="button" class="btn btn-info btn-lg mb-4"
+                            data-toggle="modal" data-target="#myModal" id="Influence" onclick="addRating('Influence');"> Influence</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Securite" onclick="addRating('Sécurite');"> Sécurité</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="soi" onclick="addRating('Réalisation de soi');"> Réalisation de soi</button> <button type="button" class="btn btn-info btn-lg mb-4"
+                            data-toggle="modal" data-target="#myModal" id="Honnetete" onclick="addRating('Honnetete');"> Honneteté</button> <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Qualite" onclick="addRating('Qualite');"> Qualité</button>                        <button type="button" class="btn btn-info btn-lg mb-4" data-toggle="modal" data-target="#myModal" id="Respect" onclick="addRating('Respect');"> Respect</button>
+                        <table id="pRating" class="table table-responsive"></table>
+                    </div>
+                    <div class="col-md-4">
+                        [contact-form-7 id="2582" title="4. Mes valeurs"]
+                        <style>
+                            .modal-content {
+                                -webkit-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -moz-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                -o-box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                box-shadow: 0 0 0 100000px rgba(0, 0, 0, .2);
+                                z-index: 10000;
+                            }
+                            
+                            @media only screen and (max-width: 1500px) {
+                                .modal-dialog {
+                                    margin-right: 5%;
+                                }
+                            }
+                            
+                            textarea {
+                                width: 100%;
+                                height: 35px;
+                            }
+                            
+                            #all_rating {
+                                visibility: hidden;
+                            }
+                        </style>
+                        <strong> Ajoutez des valeurs qui vous sont propres </strong> [textarea* valeur_propre id:valeur_propre class:form-control class:mb-1 placeholder "Vos Valeurs"] [textarea* all_rating id:all_rating ] [hidden your-name default:user_display_name]
+                        [hidden your-email default:user_email] Envoyer à : [select* mail include_blank "Martine LDM|martine@trouver-un-therapeute.fr" "Estelle R|estelle@trouver-un-therapeute.fr" "Tifenn G|tifenn@emploi-talent.com" "Françoise M|francoise.trouveruntherapeute@gmail.com"
+                        "Soumaya T|soumaya.trouveruntherapeute@gmail.com" "Mathilde G|mathilde.trouveruntherapeute@gmail.com" "Barbara L|barbara.trouveruntherapeute@gmail.com" "Virginie C|virginie.trouveruntherapeute@gmail.com" "Celine B|celine.trouveruntherapeute@gmail.com"
+                        "Thi-Van M|thi-van@trouver-un-therapeute.fr" "Dovy B|dovi@trouver-un-therapeute.fr"] [submit "Envoyer" class:btn-block class:btn]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <nav>
+            <small><b>DANS LA FINALITE ON VEUT un design de ce <a href="https://github.com/wmde/wikidata-who-am-i?ref=vuejsexamples.com" target="_blank" rel="noopener noreferrer">type</a>  mais vu qu'il n'a pas de mauvaise réponse ( à vous d'adapter ) </b></small>
+        </nav>
+    </footer>
+</body>
+
+</html>
